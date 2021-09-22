@@ -1,0 +1,48 @@
+///////////////////////////////////////////////
+
+How to use a Stencil Buffer on a Unity Shader Graph Shader
+
+///////////////////////////////////////////////
+
+Used reference assets from:
+- https://www.youtube.com/watch?v=SYx5R92I4mo
+
+///////////////////////////////////////////////
+
+How to use a Stencil Buffer on a Unity Shader Graph Shader
+- Develop your shader in Shader Graph
+- Select the master node and click show generated code
+- Copy and paste this code as a new programable shader
+- Between the sections Tags{} and Pass{} add Stencil{}
+- Fill out the Stencil{} Section as follows,
+
+	//This is my Code - Zac
+	Stencil
+	{
+		Ref 0
+		Comp Equal
+		Pass keep
+	}
+- Develop a new shader that will hide the content
+- Fill in the subshader with this code
+
+	SubShader
+	{
+		//Render Nothing (Switch To Render Everything????)
+		Zwrite off
+		ColorMask 0
+		Cull off
+
+		Stencil
+		{
+			//Will always pass ???
+			Ref 1
+			Comp always
+			Pass replace
+		}
+
+		//Do Nothing On Pass
+		Pass { }
+	}
+
+///////////////////////////////////////////////
